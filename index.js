@@ -6,7 +6,7 @@ const prototipo = "./prototipo.txt";
 const etiquetaFinal = "./Etiqueta.prn";
 const executavel = "C:\\Users\\User\\Desktop\\ZEBRA-NODE\\helper.bat"
 
-
+//DEFINE ESPAÇAMENTO BARCODE - Começando com 110 e diminuindo 10 para cada caractere
 function defineEspacamentoBarras(cod) {
     let nCasasBarCode = 110;
     if (cod.length > 1) {
@@ -17,8 +17,8 @@ function defineEspacamentoBarras(cod) {
     }
     return nCasasBarCode;
 }
-
-function defineEspacamentoObjeto(cod){
+//DEFINE ESPAÇAMENTO Descrução - Começando com 135 e diminuindo 5 para cada caractere
+function defineEspacamentoObjeto(cod) {
     let nCasas = 135;
     if (cod.length > 1) {
         for (let index = 0; index < cod.length; index++) {
@@ -56,7 +56,7 @@ async function executa() {
 
                         if (err) throw err;
                         let nCasasBarCode = defineEspacamentoBarras(codigo_e_nome[0]);
-                        let nCasasObjeto =defineEspacamentoObjeto(codigo_e_nome[1]); 
+                        let nCasasObjeto = defineEspacamentoObjeto(codigo_e_nome[1]);
                         data = data.replace("^FTO", `^FT${nCasasBarCode},63^A0N,20,20^FH\^CI28^FDObjeto^FS^CI27`)
                         data = data.replace("Codigo", codigo_e_nome[0]);
                         data = data.replace("Objeto", codigo_e_nome[1]);
