@@ -52,17 +52,28 @@ async function executa() {
 
 
 
-                            console.log('objeto', codigo_e_nome[1].length)
+                          
 
                             if (err) throw err;
                             const codigo = formataBarCode(codigo_e_nome[0]);
 
                             data = data.replace("Codigo", codigo);
-                            // data = data.replace("Objeto1", 
-                            // `^FT55,58^A0N,17,18^FH\^CI28^FD${codigo_e_nome[1].substring(0, 25)}^FS^CI27`);
-                            // data = data.replace("Objeto2",`^FT55,78^A0N,17,18^FH\^CI28^FD${codigo_e_nome[1].substring(25, 50)}^FS^CI27`);
-                            data = data.replace("Objeto1",codigo_e_nome[1].substring(0, 25));
-                            data = data.replace("Objeto2", codigo_e_nome[1].substring(25, 50));
+                            
+                            let objeto1 = codigo_e_nome[1].substring(0, 25);
+                            let objeto2 = codigo_e_nome[1].substring(25, 50);
+                            if(codigo_e_nome[1].length > 25)
+                            if((codigo_e_nome[1].substring(25) != " " ||  codigo_e_nome[1].substring(25) != "-" ||   codigo_e_nome[1].substring(25) != "_") &&(codigo_e_nome[1].substring(26) != " " ||  codigo_e_nome[1].substring(26) != "-" ||   codigo_e_nome[1].substring(26) != "_") ){
+                                let aux = objeto1.split(" ");
+                                
+                                let determinante = aux[aux.length - 1];
+                                console.log('Esta é o tamanho-> ', aux.length)
+                                console.log('Esta é a determinante-> ', determinante)
+                                objeto1 = objeto1.replace(determinante, "");
+                                objeto2 = determinante + codigo_e_nome[1].substring(25, 50);
+                            }
+
+                            data = data.replace("Objeto1",objeto1);
+                            data = data.replace("Objeto2", objeto2);
 
                             console.log(data)
 
