@@ -9,9 +9,13 @@ let executavel = ""
 
 
 
+function tiraChapeu(palavra) {
+    
+    return palavra.replace("â", "a").replace("Â", "A").replace("Ê", "E").replace("ê", "e").replace("î", "i").replace("Î", "I").replace("Ô", "O").replace("ô", "o").replace("û", "u").replace("Û", "U");
+
+}
 
 
-//DEFINE ESPAÇAMENTO BARCODE - Começando com 110 e diminuindo 10 para cada caractere
 function formataBarCode(cod) {
     if (!cod) {
         throw 'Código undefined';
@@ -52,27 +56,27 @@ async function executa() {
 
 
 
-                          
+
 
                             if (err) throw err;
                             const codigo = formataBarCode(codigo_e_nome[0]);
 
                             data = data.replace("Codigo", codigo);
-                            
+                            codigo_e_nome[1] = tiraChapeu(codigo_e_nome[1]);
                             let objeto1 = codigo_e_nome[1].substring(0, 25);
                             let objeto2 = codigo_e_nome[1].substring(25, 50);
-                            if(codigo_e_nome[1].length > 25)
-                            if((codigo_e_nome[1].substring(25) != " " ||  codigo_e_nome[1].substring(25) != "-" ||   codigo_e_nome[1].substring(25) != "_") &&(codigo_e_nome[1].substring(26) != " " ||  codigo_e_nome[1].substring(26) != "-" ||   codigo_e_nome[1].substring(26) != "_") ){
-                                let aux = objeto1.split(" ");
-                                
-                                let determinante = aux[aux.length - 1];
-                                console.log('Esta é o tamanho-> ', aux.length)
-                                console.log('Esta é a determinante-> ', determinante)
-                                objeto1 = objeto1.replace(determinante, "");
-                                objeto2 = determinante + codigo_e_nome[1].substring(25, 50);
-                            }
+                            if (codigo_e_nome[1].length > 25)
+                                if ((codigo_e_nome[1].substring(25) != " " || codigo_e_nome[1].substring(25) != "-" || codigo_e_nome[1].substring(25) != "_") && (codigo_e_nome[1].substring(26) != " " || codigo_e_nome[1].substring(26) != "-" || codigo_e_nome[1].substring(26) != "_")) {
+                                    let aux = objeto1.split(" ");
 
-                            data = data.replace("Objeto1",objeto1);
+                                    let determinante = aux[aux.length - 1];
+                                    console.log('Esta é o tamanho-> ', aux.length)
+                                    console.log('Esta é a determinante-> ', determinante)
+                                    objeto1 = objeto1.replace(determinante, "");
+                                    objeto2 = determinante + codigo_e_nome[1].substring(25, 50);
+                                }
+
+                            data = data.replace("Objeto1", objeto1);
                             data = data.replace("Objeto2", objeto2);
 
                             console.log(data)
